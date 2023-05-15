@@ -5,12 +5,17 @@ CITY=city
 URL="https://api.openweathermap.org/data/2.5/weather?q=${CITY}&units=${UNITS}&appid=${KEY}"
 while :
 do
-RESPONSE=$(curl -s "${URL}")
-
-WEATHER=$(echo "${RESPONSE}" | jq -r '.weather[0].description')
-TEMP=$(echo "${RESPONSE}" | jq -r '.main.temp')
-
-echo "$WEATHER $TEMP°" > ~/.config/dwm/barweather
-~/.config/dwm/bar
-sleep 2m 
+  RESPONSE=$(curl -s "${URL}")
+    if [ "$RESPONSE" ]
+    then
+      TEMP=$(echo "${RESPONSE}" | jq -r '.main.temp')
+      WEATHER=$(echo "${RESPONSE}" | jq -r '.weather[0].description')
+      echo "$WEATHER $TEMP°" > ~/.config/dwm/barweather
+      ~/.config/dwm/bar
+      sleep 2m
+    else
+      echo no internet > ~/.config/dwm/barweather
+      ~/.config/dwm/bar
+      sleep 3
+    fi
 done
