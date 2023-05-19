@@ -1,6 +1,6 @@
 all:
-		rm -rf -f ~/.config/dwm/
-		rm -rf -f ~/.xinitrc
+		rm -rf ~/.config/dwm/
+		rm -rf ~/.xinitrc
 		rm -f ~/.config/picom.conf
 		cp -f .xinitrc ~/.xinitrc
 		cp -f picom.conf ~/.config/
