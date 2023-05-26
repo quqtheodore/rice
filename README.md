@@ -9,6 +9,6 @@ cd rice
 make
 sudo make install
 ```
-dwm has alpha patch, alwayscenter patch, hidevacanttags patch, uselessgap patch. 
+dwm has alpha patch, scratchpad patch, movestack patch, attachaside patch, alwayscenter patch, hidevacanttags patch, uselessgap patch. 
 
 st has alpha patch, scrollback patch.

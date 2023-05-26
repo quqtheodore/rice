@@ -1,11 +1,10 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-
 #include <X11/XF86keysym.h>
+#include "movestack.c"
 static const unsigned int baralpha = 0xE1;
 static const unsigned int borderalpha = OPAQUE;
-
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
 	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
@@ -14,7 +13,7 @@ static const unsigned int alphas[][3]      = {
 
 static const int gappx = 9;
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
-static const unsigned int snap      = 100;       /* snap pixel */
+static const unsigned int snap      = 30;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=10" };
@@ -53,7 +52,7 @@ static const Rule rules[] = {
 
 /* layout(s) */
 static const float mfact     = 0.52; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 2;    /* number of clients in master area */
+static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
@@ -61,7 +60,7 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]",      tile },    /* first entry is default */
  	{ "><",      NULL },    /* no layout function means floating behavior */
-  { "[M]",      monocle },
+  	{ "[M]",      monocle },
 };
 
 /* key definitions */
@@ -79,23 +78,32 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", norm_bg, "-nf", norm_fg, "-sb", sel_bg, "-sf", sel_fg, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char scratchpadname[] = "scratchpad";
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "100x25", NULL };
+
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-  { 0,                       XF86XK_AudioLowerVolume,      spawn,          SHCMD("/home/theo/.config/dwm/bar") },
-  { 0,                       XF86XK_AudioMute,             spawn,          SHCMD("/home/theo/.config/dwm/bar") },
-  { 0,                       XF86XK_AudioRaiseVolume,      spawn,          SHCMD("/home/theo/.config/dwm/bar") },
+	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
 
-  { 0,                       XF86XK_AudioMute,             spawn,          SHCMD("amixer -q sset Master,0 toggle") },
-  { 0,                       XF86XK_AudioLowerVolume,      spawn,          SHCMD("amixer -q sset Master,0 3- unmute") },
-  { 0,                       XF86XK_AudioRaiseVolume,      spawn,          SHCMD("amixer -q sset Master,0 3+ unmute") },
+	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
 
-  { 0,                       XF86XK_MonBrightnessDown,     spawn,          SHCMD("brightnessctl set 5%-") },
-  { 0,                       XF86XK_MonBrightnessUp,       spawn,          SHCMD("brightnessctl set 5%+") },
+	{ 0,                       XF86XK_AudioLowerVolume,      spawn,          SHCMD("/home/theo/.config/dwm/bar") },
+  	{ 0,                       XF86XK_AudioMute,             spawn,          SHCMD("/home/theo/.config/dwm/bar") },
+  	{ 0,                       XF86XK_AudioRaiseVolume,      spawn,          SHCMD("/home/theo/.config/dwm/bar") },
+
+	{ 0,                       XF86XK_AudioMute,             spawn,          SHCMD("amixer -q sset Master,0 toggle") },
+  	{ 0,                       XF86XK_AudioLowerVolume,      spawn,          SHCMD("amixer -q sset Master,0 3- unmute") },
+  	{ 0,                       XF86XK_AudioRaiseVolume,      spawn,          SHCMD("amixer -q sset Master,0 3+ unmute") },
+
+  	{ 0,                       XF86XK_MonBrightnessDown,     spawn,          SHCMD("brightnessctl set 5%-") },
+  	{ 0,                       XF86XK_MonBrightnessUp,       spawn,          SHCMD("brightnessctl set 5%+") },
  
-  { 0,                                     XK_Print,       spawn,          SHCMD("flameshot gui") },
-  { MODKEY,                       XK_w,      spawn,          SHCMD("chromium") },
-  { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+  	{ 0,                                     XK_Print,       spawn,          SHCMD("scrot -s -e 'xclip -selection clipboard -t image/png -i $f'") },
+  	
+	{ MODKEY,                       XK_w,      spawn,          SHCMD("chromium") },
+  	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -107,9 +115,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_z,      zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+  	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-  { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -127,8 +135,8 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)	
-  { MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
-  { MODKEY|ShiftMask,             XK_e,      quit,     {0} },
+  	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
+  	{ MODKEY|ShiftMask,             XK_e,      quit,     {0} },
 };
 
 /* button definitions */
@@ -147,5 +155,4 @@ static const Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
 
