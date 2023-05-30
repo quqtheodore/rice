@@ -1,5 +1,5 @@
 #!/bin/bash
-KEY=key
+KEY=
 UNITS=metric
 CITY=city
 URL="https://api.openweathermap.org/data/2.5/weather?q=${CITY}&units=${UNITS}&appid=${KEY}"

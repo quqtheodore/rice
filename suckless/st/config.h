@@ -6,8 +6,8 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 float alpha = 0.88;
-static char *font = "monospace:pixelsize=16:antialias=true:autohint=true";
-static int borderpx = 0; 
+static char *font = "Terminus:pixelsize=18:antialias=true:autohint=true";
+static int borderpx = 9; 
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -96,23 +96,24 @@ unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	"#21343f",
-	"#e5242f",
-	"#6eaf66",
-	"#f8b01f",
-	"#5c5cff",
-	"#9d769d",
-	"#479595",
-	"#a3a3a3",
+"#282a36",
+"#ff5c57",
+"#5af78e",
+"#f3f99d",
+"#57c7ff",
+"#ff6ac1",
+"#9aedfe",
+"#a3a3a3",
 
-	"#29414f",
-	"#ec5f67",
-	"#99c794",
-	"#fac863",
-	"#6699cc",
-	"#c594c5",
-	"#5fb3b3",
-	"#FFFFFF",
+  
+"#686868",
+"#ff5c57",
+"#5af78e",
+"#f3f99d",
+"#57c7ff",
+"#ff6ac1",
+"#9aedfe",
+"#a3a3a3",
 
 	[255] = 0,
 
@@ -120,7 +121,7 @@ static const char *colorname[] = {
 	"#cccccc",
 	"#555555",
 	"gray90", /* default foreground colour */
-	"#0a0f18", /* default background colour */
+	"#282a36", /* default background colour */
 };
 
 
@@ -227,7 +228,7 @@ static Shortcut shortcuts[] = {
  */
 
 /*
- * If you want keys other than the X11 function keys (0xFD00 - 0xFFFF)
+ * If you want keys other than the X11 function keys (#FD00 - #FFFF)
  * to be mapped below, add them to this array.
  */
 static KeySym mappedkeys[] = { -1 };
