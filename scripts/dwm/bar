@@ -1,4 +1,4 @@
 #!/bin/bash
-xsetroot -name " vol:$(amixer sget Master | awk -F"[][]" '/dB/ { print $2 }') bat:$(cat /sys/class/power_supply/BAT0/capacity)% $(cat ~/.config/dwm/barweather) $(date '+%A-%d %I:%M')"
+xsetroot -name " | vol:$(amixer sget Master | awk -F"[][]" '/dB/ { print $2" "$6}') | bat:$(cat /sys/class/power_supply/BAT0/capacity)% | $(cat ~/.config/dwm/barweather) | $(date '+%A-%d %I:%M')"
 exit
 

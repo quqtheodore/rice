@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-float alpha = 0.88;
+float alpha = 0.82;
 static char *font = "Terminus:pixelsize=18:antialias=true:autohint=true";
 static int borderpx = 9; 
 
@@ -96,24 +96,25 @@ unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-"#282a36",
-"#ff5c57",
-"#5af78e",
-"#f3f99d",
-"#57c7ff",
-"#ff6ac1",
-"#9aedfe",
-"#a3a3a3",
 
-  
-"#686868",
-"#ff5c57",
-"#5af78e",
-"#f3f99d",
-"#57c7ff",
-"#ff6ac1",
-"#9aedfe",
-"#a3a3a3",
+
+"#000000",
+"#f7786d",
+"#bde97c",
+"#efdfac",
+"#6ebaf8",
+"#ef88ff",
+"#90fdf8",
+"#e5e1d8",
+
+"#b4b4b4",
+"#f99f92",
+"#e3f7a1",
+"#f2e9bf",
+"#b3d2ff",
+"#e5bdff",
+"#c2fefa",
+"#ffffff",
 
 	[255] = 0,
 

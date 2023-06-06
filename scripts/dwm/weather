@@ -1,7 +1,7 @@
 #!/bin/bash
 KEY=
 UNITS=metric
-CITY=city
+CITY=
 URL="https://api.openweathermap.org/data/2.5/weather?q=${CITY}&units=${UNITS}&appid=${KEY}"
 while :
 do

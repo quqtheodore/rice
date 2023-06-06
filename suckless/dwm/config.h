@@ -3,7 +3,7 @@
 /* appearance */
 #include <X11/XF86keysym.h>
 #include "movestack.c"
-static const unsigned int baralpha = 0xE1;
+static const unsigned int baralpha = 0xD1;
 static const unsigned int borderalpha = OPAQUE;
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
@@ -20,7 +20,7 @@ static const char *fonts[]          = { "Terminus:size=13" };
 static const char dmenufont[]       = "Terminus:size=13";
 
 static const char norm_fg[] = "#eff0eb";
-static const char norm_bg[] = "#282a36";
+static const char norm_bg[] = "#2a2a39";
 static const char norm_border[] = "#282a36";
 
 static const char sel_fg[] = "#eff0eb";

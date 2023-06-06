@@ -1,7 +1,6 @@
 set hidden true
 set ignorecase true
 
-# Custom Functions
 cmd mkdir ${{
   printf "Directory Name: "
   read ans
@@ -14,7 +13,6 @@ cmd mkfile ${{
   touch $ans
 }}
 
-# Archive bindings
 cmd unarchive ${{
   case "$f" in
       *.zip) unzip "$f" ;;
@@ -36,7 +34,7 @@ map r reload
 map mf mkfile
 map md mkdir
 map c clear
-map e $vim "$f"
+map e $nvim "$f"
 map ua unarchive
 
 
