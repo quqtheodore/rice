@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-float alpha = 0.82;
+float alpha = 0.80;
 static char *font = "Terminus:pixelsize=18:antialias=true:autohint=true";
 static int borderpx = 9; 
 
@@ -54,8 +54,8 @@ int allowwindowops = 0;
  * near minlatency, but it waits longer for slow updates to avoid partial draw.
  * low minlatency will tear/flicker more, as it can "detect" idle too early.
  */
-static double minlatency = 8;
-static double maxlatency = 33;
+static double minlatency = 1;
+static double maxlatency = 5;
 
 /*
  * blinking timeout (set to 0 to disable blinking) for the terminal blinking
@@ -122,7 +122,7 @@ static const char *colorname[] = {
 	"#cccccc",
 	"#555555",
 	"gray90", /* default foreground colour */
-	"#282a36", /* default background colour */
+	"#2a2a39", /* default background colour */
 };
 
 

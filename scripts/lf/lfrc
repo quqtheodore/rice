@@ -1,6 +1,12 @@
+set previewer ctpv
+set cleaner ctpvclear
+&ctpv -s $id
+&ctpvquit $id
+
 set hidden true
 set ignorecase true
 
+# Custom Functions
 cmd mkdir ${{
   printf "Directory Name: "
   read ans
@@ -13,6 +19,7 @@ cmd mkfile ${{
   touch $ans
 }}
 
+# Archive bindings
 cmd unarchive ${{
   case "$f" in
       *.zip) unzip "$f" ;;
@@ -26,15 +33,18 @@ cmd unarchive ${{
 # Bindings
 map d
 map m
+map u
 map dd delete 
 map p paste
 map x cut
 map y copy
-map r reload
 map mf mkfile
+map r rename
+map <C-R> reload 
 map md mkdir
 map c clear
 map e $nvim "$f"
+map se $doas nvim "$f"
 map ua unarchive
 
 

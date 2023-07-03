@@ -3,7 +3,7 @@
 /* appearance */
 #include <X11/XF86keysym.h>
 #include "movestack.c"
-static const unsigned int baralpha = 0xD1;
+static const unsigned int baralpha = 0xCC;
 static const unsigned int borderalpha = OPAQUE;
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
@@ -46,7 +46,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "chromium",     "Save File",       NULL,       0,            1,           -1 },
+	{ "Librewolf",     "Save File",       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 };
 
@@ -78,7 +78,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", norm_bg, "-nf", norm_fg, "-sb", sel_bg, "-sf", sel_fg, NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char scratchpadname[] = "scratchpad";
+static const char scratchpadname[] = "scratch";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "100x25", NULL };
 
 
@@ -97,12 +97,10 @@ static const Key keys[] = {
   	{ 0,                       XF86XK_AudioLowerVolume,      spawn,          SHCMD("amixer -q sset Master,0 3- unmute") },
   	{ 0,                       XF86XK_AudioRaiseVolume,      spawn,          SHCMD("amixer -q sset Master,0 3+ unmute") },
 
-  	{ 0,                       XF86XK_MonBrightnessDown,     spawn,          SHCMD("brightnessctl set 5%-") },
-  	{ 0,                       XF86XK_MonBrightnessUp,       spawn,          SHCMD("brightnessctl set 5%+") },
  
   	{ 0,                                     XK_Print,       spawn,          SHCMD("scrot -s -e 'xclip -selection clipboard -t image/png -i $f'") },
-	{ MODKEY,                       XK_w,      spawn,          SHCMD("chromium") },
-	{ MODKEY,                       XK_g,      spawn,          SHCMD("firemenu") },
+	{ MODKEY,                       XK_w,      spawn,          SHCMD("librewolf") },
+	{ MODKEY,                       XK_g,      spawn,          SHCMD("browsermenu") },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
